@@ -7,7 +7,7 @@ let calendarMonth = (new Date()).getMonth();
 async function login() {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-  const res = await fetch('http://localhost:3000/api/login', {
+  const res = await fetch('https://exodus-wpuc.onrender.com/api/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
@@ -63,7 +63,7 @@ function afterLoginView() {
 async function loadCalendar(year = calendarYear, month = calendarMonth) {
   calendarYear = year;
   calendarMonth = month;
-  const res = await fetch('http://localhost:3000/api/events');
+  const res = await fetch('https://exodus-wpuc.onrender.com/api/events');
   if (!res.ok) return;
   const events = await res.json();
   renderCalendar(events, year, month);
@@ -147,7 +147,7 @@ function closeEventPopup() {
 window.closeEventPopup = closeEventPopup;
 
 async function deleteEvent(eventId) {
-  const response = await fetch(`http://localhost:3000/api/events/${eventId}`, {
+  const response = await fetch(`https://exodus-wpuc.onrender.com/api/events/${eventId}`, {
     method: 'DELETE',
     headers: { 'Authorization': `Bearer ${token}` }
   });
@@ -190,7 +190,7 @@ function nextMonth() {
 
 /* ========= UPDATES & PUBLIC MESSAGES ========= */
 async function loadMessages() {
-  const res = await fetch('http://localhost:3000/api/messages');
+  const res = await fetch('https://exodus-wpuc.onrender.com/api/messages');
   if (!res.ok) return;
   const messages = await res.json();
   const msgDiv = document.getElementById('messages');
@@ -212,7 +212,7 @@ async function postMessage() {
   if (!token) return;
   const text = document.getElementById('new-message').value.trim();
   if (!text) return;
-  await fetch('http://localhost:3000/api/messages', {
+  await fetch('https://exodus-wpuc.onrender.com/api/messages', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
     body: JSON.stringify({ text })
@@ -226,7 +226,7 @@ async function askAdmins() {
   const textarea = document.getElementById('ask-admins-input');
   const message = textarea.value.trim();
   if (!message) return;
-  await fetch('http://localhost:3000/api/ask-admins', {
+  await fetch('https://exodus-wpuc.onrender.com/api/ask-admins', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
     body: JSON.stringify({ text: message })
@@ -237,7 +237,7 @@ async function askAdmins() {
   loadMyMessages(); // Refresh own history
 }
 async function loadMyMessages() {
-  const res = await fetch('http://localhost:3000/api/my-questions', {
+  const res = await fetch('https://exodus-wpuc.onrender.com/api/my-questions', {
     headers: { Authorization: `Bearer ${token}` }
   });
   const questions = await res.json();
@@ -265,7 +265,7 @@ function toggleMyMessages() {
 
 /* ========= ADMIN: SEE/REPLY/DELETE USER MESSAGES ========= */
 async function loadAdminQuestions() {
-  const res = await fetch('http://localhost:3000/api/admin-questions', {
+  const res = await fetch('https://exodus-wpuc.onrender.com/api/admin-questions', {
     headers: { Authorization: `Bearer ${token}` }
   });
   const questions = await res.json();
@@ -296,7 +296,7 @@ async function replyAdminMsg(msgId, btn) {
   const reply = btn.parentNode.querySelector('textarea').value.trim();
   if (!reply) return;
   btn.disabled = true;
-  await fetch(`http://localhost:3000/api/admin-questions/${msgId}/reply`, {
+  await fetch(`https://exodus-wpuc.onrender.com/api/admin-questions/${msgId}/reply`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
     body: JSON.stringify({ reply })
@@ -305,7 +305,7 @@ async function replyAdminMsg(msgId, btn) {
 }
 async function deleteAdminMsg(msgId) {
   if (!confirm('Delete this entire chat?')) return;
-  await fetch(`http://localhost:3000/api/admin-questions/${msgId}`, {
+  await fetch(`https://exodus-wpuc.onrender.com/api/admin-questions/${msgId}`, {
     method: 'DELETE',
     headers: { Authorization: `Bearer ${token}` }
   });
