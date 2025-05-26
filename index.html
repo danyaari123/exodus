@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exodus Calendar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ====== LOGIN FORM ====== -->
+  <div id="login-container" class="centered">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <div id="login-error" class="error"></div>
+  </div>
+
+  <!-- ====== MAIN CONTENT (Post-login) ====== -->
+  <div id="main-content" style="display:none;">
+    <header>
+      <div>
+        <img src="exodus.webp" alt="Logo" id="header-logo">
+        <span id="site-title">Exodus</span>
+      </div>
+      <button onclick="logout()" id="button1">Logout</button>
+    </header>
+    <div id="content-flex">
+      <!-- === CALENDAR SECTION === -->
+      <section id="calendar-section">
+        <div id="calendar-controls" style="display:none;">
+          <input type="date" id="event-date" placeholder="Date">
+          <input type="text" id="event-title" placeholder="Event title">
+          <input type="time" id="event-time" placeholder="Time">
+          <input type="text" id="event-place" placeholder="Location">
+          <input type="text" id="event-extrainfo" placeholder="Extra info">
+          <button onclick="addEvent()">Add Event</button>
+        </div>
+        <div id="calendar-nav">
+          <button onclick="prevMonth()">&#8592; Prev</button>
+          <span id="calendar-title"></span>
+          <button onclick="nextMonth()">Next &#8594;</button>
+        </div>
+        <div id="calendar"></div>
+      </section>
+
+      <!-- === UPDATES & MESSAGES === -->
+      <section id="messages-section">
+        <h2>Public Updates</h2>
+        <div id="message-controls" style="display:none;">
+          <textarea id="new-message" placeholder="Write an update..."></textarea>
+          <button onclick="postMessage()" id="button2">Post Update</button>
+        </div>
+        <div id="messages"></div>
+
+        <!-- USER (see own admin chats) -->
+        <div id="ask-admins-section" style="display:none;">
+          <h3>Contact a board member</h3>
+          <textarea id="ask-admins-input" placeholder="Ask a board member anything..."></textarea>
+          <button onclick="askAdmins()">Send to a board member</button>
+          <div id="ask-admins-success"></div>
+        </div>
+        <div id="user-questions-section" style="display:none;">
+          <h3>My chats with board members</h3>
+          <button onclick="toggleMyMessages()" class="toggle-btn">Show/Hide Messages</button>
+          <div id="my-questions-list" style="display:none;"></div>
+        </div>
+
+        <!-- ADMIN (see/reply/delete all user-admin chats) -->
+        <div id="admin-questions-section" style="display:none;">
+          <h3>User Questions for board</h3>
+          <div id="admin-questions-list"></div>
+        </div>
+      </section>
+    </div>
+    <footer id="main-footer">
+      <div class="links">
+        <a href="https://www.instagram.com/exodusaza_1372" target="_blank" rel="noopener" width="48">
+          <img src="instagram.svg" alt="Instagram" class="footer-icon"> 
+        </a>
+        <a href="https://bbyo.org/" target="_blank" rel="noopener" width="16">
+          <img src="globe.png" alt="BBYO Official" class="footer-icon"> 
+        </a>
+      </div>
+    </footer>
+  </div>
+  <div id="event-popup" style="display:none;"></div>
+  <script src="script.js"></script>
+</body>
+</html>

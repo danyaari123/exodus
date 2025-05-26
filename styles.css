@@ -1,0 +1,430 @@
+/* ======== BASE RESET & LAYOUT ======== */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6fb;
+  margin: 0;
+  padding: 0;
+}
+
+/* ======== LOGIN FORM ======== */
+.centered {
+  width: 300px;
+  margin: 100px auto 0 auto;
+  background: #fff;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px #0001;
+  text-align: center;
+}
+#login-container input,
+#login-container button {
+  display: block;
+  width: 95%;
+  margin: 0.6em auto;
+  font-size: 1em;
+  padding: 0.5em;
+  box-sizing: border-box;
+}
+
+/* ======== HEADER ======== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #4a90e2;
+  color: white;
+  padding: 1em 2em;
+  border-radius: 0 0 10px 10px;
+}
+#header-logo {
+  height: 40px;
+  width: 40px;
+  margin-right: 15px;
+  vertical-align: middle;
+  border-radius: 6px;
+  object-fit: contain;
+  background: #fff;
+  box-shadow: 0 2px 6px #0001;
+}
+#site-title {
+  display: inline;
+  font-size: 1.8em;
+  letter-spacing: 2px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+}
+header > div {
+  display: flex;
+  align-items: center;
+}
+
+/* ======== LAYOUT CONTAINERS ======== */
+#main-content {
+  padding: 1em;
+}
+#content-flex {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 1em;
+}
+@media (max-width: 900px) {
+  #content-flex {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  #messages-section {
+    max-width: none;
+    min-width: 0;
+    margin-top: 2em;
+  }
+}
+/* ======== CALENDAR SECTION ======== */
+#calendar-section {
+  flex: 1 1 350px;
+  min-width: 350px;
+}
+
+/* --- Calendar Controls --- */
+#calendar-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.5em;
+  margin-bottom: 1.5em;
+  background: #f8f9fa;
+  padding: 1em;
+  border-radius: 8px;
+}
+#calendar-controls input,
+#calendar-controls textarea,
+#calendar-controls button {
+  width: 150px;
+  max-width: 150px;
+  min-width: 80px;
+  font-size: 1em;
+  padding: 0.4em;
+  border-radius: 5px;
+  border: 1px solid #c0c0c0;
+  box-sizing: border-box;
+  margin: 0;
+}
+#calendar-controls button {
+  min-width: 100px;
+  padding: 0.45em 1em;
+}
+@media (max-width: 900px) {
+  #calendar-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8em;
+  }
+  #calendar-controls input,
+  #calendar-controls textarea,
+  #calendar-controls button,
+  .button1 {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* --- Calendar Nav --- */
+#calendar-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+#calendar-nav button {
+  padding: 0.5em 1em;
+  margin: 0 0.8em;
+}
+#calendar-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  width: 180px;
+  display: inline-block;
+  text-align: center;
+}
+
+/* --- Calendar Grid --- */
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+.day {
+  background: #f0f4fa;
+  border-radius: 6px;
+  padding: 1em 0.5em;
+  min-height: 70px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+  text-align: left;
+}
+.day:hover { background: #e2ecfa; }
+.day.today {
+  background: #4a90e2 !important;
+  color: #fff !important;
+  box-shadow: 0 1px 4px #0001;
+}
+.day.today .event {
+  background: #fff;
+  color: #357ab8;
+}
+.event {
+  background: #4a90e2;
+  color: white;
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-top: 6px;
+  font-size: 0.9em;
+  cursor: pointer;
+  word-break: break-word;
+  display: inline-block;
+}
+.event-delete-btn {
+  background: transparent;
+  border: none;
+  color: #dc3545;
+  font-size: 1em;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 0;
+  padding: 0;
+  line-height: 1;
+  vertical-align: middle;
+  display: inline;
+  font-weight: bold;
+}
+.event-delete-btn:hover { color: #a71d2a; }
+
+/* --- Event Popup --- */
+.event-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: #fff;
+  color: #222;
+  padding: 2em 2em 1em 2em;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px #0002;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  min-width: 250px;
+  max-width: 90vw;
+  min-height: 50px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.event-popup-close {
+  position: absolute;
+  top: 6px;
+  right: 14px;
+  font-size: 1.4em;
+  color: #357ab8;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.event-popup-close:hover { color: #dc3545; }
+.event-popup-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #4a90e2;
+  margin-bottom: 0.5em;
+  display: block;
+}
+.event-popup-desc {
+  color: #444;
+  white-space: pre-line;
+  font-size: 1em;
+}
+
+/* ======== MESSAGE BOARD & ADMINS ======== */
+#messages-section {
+  flex: 0 0 320px;
+  max-width: 370px;
+  min-width: 280px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5em 1em 1em 1em;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  max-height: 710px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#messages {
+  min-height: 100px;
+  margin-bottom: 0;
+  border: none;
+  padding: 0;
+  background: none;
+  max-height: 320px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.message-box {
+  background: #f7fafd;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 1em;
+  box-shadow: 0 1px 3px #0001;
+  word-break: break-word;
+  position: relative;
+}
+.message-author {
+  font-weight: 700;
+  color: #1759b1;
+  background: #eaf6ff;
+  border-radius: 5px;
+  padding: 2px 8px;
+  margin-right: 7px;
+}
+.message-date {
+  color: #888;
+  font-size: 0.85em;
+  float: right;
+}
+.message-content {
+  margin-top: 0.4em;
+  white-space: pre-line;
+}
+#message-controls {
+  margin-bottom: 1.1em;
+}
+
+/* --- Ask All Admins (User) --- */
+#ask-admins-section {
+  margin-top: 2em;
+  padding: 1.2em 1em 1em 1em;
+  background: #f8f9ff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px #0001;
+}
+#ask-admins-section textarea {
+  width: 95%;
+  min-height: 60px;
+  border-radius: 5px;
+  border: 1px solid #b0c0dc;
+  padding: 0.7em;
+  font-size: 1em;
+  margin-bottom: 0.7em;
+  resize: vertical;
+}
+#ask-admins-section button, 
+.toggle-btn,
+.button2 {
+  background: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 0.4em 1.2em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+#ask-admins-section button:hover { background: #357ab8; }
+#ask-admins-success { color: #278d3a; margin-top: 0.7em; }
+
+/* --- Admin Questions (Admin) --- */
+#admin-questions-section {
+  margin-top: 2em;
+  padding: 1.2em 1em 1em 1em;
+  background: #fffbed;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px #edc09f42;
+}
+.admin-question-box {
+  background: #f7fafd;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 1em;
+  box-shadow: 0 1px 3px #0001;
+}
+.admin-question-box textarea {
+  width: 98%;
+  min-height: 38px;
+  margin-top: 6px;
+  font-size: 1em;
+}
+.admin-question-box button {
+  margin-top: 0.5em;
+  font-size: 1em;
+  padding: 0.3em 1.2em;
+}
+
+/* ======== FOOTER & LINKS ======== */
+#main-footer {
+  width: 100vw;
+  background: #a8a8a8;
+  margin-top: 2em;
+  padding: 1em 0 1.3em 0;
+  text-align: center;
+  border-top: 1px solid #c0d1e5;
+}
+.links {
+  font-size: 1.1em;
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+}
+.links a {
+  text-decoration: none;
+  color: #2062a6;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.links a:hover { color: #357ab8; }
+.footer-icon {
+
+  height: 16px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-bottom: 2px;
+}
+
+/* ======== GENERAL ======== */
+#messages-section, #messages {
+  overflow-x: hidden !important;
+}
+.error {
+  color: #dc3545;
+  margin-top: 0.5em;
+}
+/* user own question */
+
+#user-questions-section {
+  margin-top: 2em;
+  padding: 1.2em 1em 1em 1em;
+  background: #f8f9ff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px #0001;
+}
+.my-question-box {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 1em;
+  margin: 1em 0;
+  box-shadow: 0 1px 3px #0001;
+}
+.toggle-btn {
+  background: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 0.4em 1.2em;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
