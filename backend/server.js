@@ -41,12 +41,28 @@ const AdminMsg = mongoose.model('AdminMsg', adminMsgSchema);
 // ---- APP SETUP ----
 
 const app = express();
+
+// === CORS CONFIG: allow GitHub Pages frontend ===
+app.use(cors({
+  origin: [
+    "https://danyaari123.github.io", // your GitHub Pages site
+    "http://localhost:3000",         // for local dev testing
+  ],
+  credentials: false // If you use cookies, set true; JWT in header is false
+}));
+
 app.use(express.json());
-app.use(cors());
+
+// ---- MONGOOSE CONNECTION ----
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/calendar-app', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+})
+.then(() => console.log("MongoDB connected"))
+.catch(err => {
+  console.error("MongoDB connection error:", err);
+  process.exit(1);
 });
 
 // ---- AUTH MIDDLEWARE ----
@@ -127,16 +143,17 @@ app.get('/api/admin-questions', auth('admin'), async (req, res) => {
   res.json(questions);
 });
 
+// Users see their own messages and replies
 app.get('/api/my-questions', auth(), async (req, res) => {
   const questions = await AdminMsg.find({ from: req.user.username }).sort({ createdAt: -1 });
   res.json(questions);
 });
 
+// Admin deletes a user-admin thread
 app.delete('/api/admin-questions/:id', auth('admin'), async (req, res) => {
   await AdminMsg.findByIdAndDelete(req.params.id);
   res.sendStatus(204);
 });
-
 
 // Admin replies to a question
 app.post('/api/admin-questions/:id/reply', auth('admin'), async (req, res) => {
